@@ -32880,3 +32880,21 @@ LIMIT 15
 2026-11-05T07:22:43.928081Z	   26 Connect	root@localhost on  using SSL/TLS
 2026-11-05T07:22:43.928360Z	   26 Query	select @@version_comment limit 1
 2026-11-05T07:22:43.931035Z	   26 Quit	
+2026-11-05T07:24:46.779740Z	   27 Connect	root@localhost on  using SSL/TLS
+2026-11-05T07:24:46.779936Z	   27 Query	shutdown
+2026-11-05T07:24:46.780442Z	   27 Query	
+C:\Users\Administrator\source\check\mysql-8.4.6-winx64\bin\mysqld.exe, Version: 8.4.6 (MySQL Community Server - GPL). started with:
+TCP Port: 3307, Named Pipe: MySQL
+Time                 Id Command    Argument
+2026-11-05T07:25:21.240666Z	    0 Execute	CREATE TABLE performance_schema.innodb_redo_log_files(
+`FILE_ID` BIGINT NOT NULL COMMENT 'Id of the file.',
+`FILE_NAME` VARCHAR(2000) NOT NULL COMMENT 'Path to the file.',
+`START_LSN` BIGINT NOT NULL COMMENT 'LSN of the first block in the file.',
+`END_LSN` BIGINT NOT NULL COMMENT 'LSN after the last block in the file.',
+`SIZE_IN_BYTES` BIGINT NOT NULL COMMENT 'Size of the file (in bytes).',
+`IS_FULL` TINYINT NOT NULL COMMENT '1 iff file has no free space inside.',
+`CONSUMER_LEVEL` INT NOT NULL COMMENT 'All redo log consumers registered on smaller levels than this value, have already consumed this file.'
+)engine = 'performance_schema'
+2026-11-05T07:25:21.581692Z	    9 Connect	root@localhost on  using SSL/TLS
+2026-11-05T07:25:21.581994Z	    9 Query	shutdown
+2026-11-05T07:25:21.582584Z	    9 Query	
