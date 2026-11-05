@@ -47,6 +47,9 @@ MySQL Community Server 8.4.6 — без установки в систему, с
 
 ```
 Begin_MySQL_1/
+├── README.md               # обзор и краткий ход работы
+├── REPORT.md               # пошаговый отчёт со скриншотами
+├── screenshots/            # скриншоты консоли по шагам
 ├── my.cnf                  # конфиг из задания (для Docker, пути /var/lib/mysql)
 ├── my.local.ini            # тот же конфиг для локального запуска на Windows
 ├── sql/                    # SQL-сценарии по шагам задания
@@ -63,9 +66,14 @@ Begin_MySQL_1/
 ├── general.log             # журнал general_log сервера
 ├── scripts/
 │   ├── start-local.ps1     # запуск локального сервера
-│   └── stop-local.ps1      # остановка локального сервера
+│   ├── stop-local.ps1      # остановка локального сервера
+│   ├── capture-console.ps1 # захват окна консоли в PNG
+│   └── scenes/             # сценарии скриншотов + SQL для них
 └── data/                   # файлы БД (исключены из репозитория)
 ```
+
+> Подробный пошаговый отчёт с фотографиями каждого шага — в файле
+> **[REPORT.md](REPORT.md)**.
 
 ---
 
@@ -361,6 +369,24 @@ mysql --defaults-file=my.local.ini -uroot -p123 restore_test < dump_clean.sql
 # запуск
 .\scripts\start-local.ps1
 ```
+
+---
+
+## 📸 Скриншоты
+
+Все изображения сняты с реального окна консоли (PowerShell + клиент `mysql`),
+скрипты съёмки лежат в `scripts/scenes/`.
+
+| Шаг | Скриншот |
+|---|---|
+| 1. Сервер, кодировка, список БД | [01-server-charset.png](screenshots/01-server-charset.png) |
+| 2. Создание БД и таблицы | [02-create-table.png](screenshots/02-create-table.png) |
+| 3. Вставка данных | [03-insert.png](screenshots/03-insert.png) |
+| 4. Вставка и HEX-проверка | [04-hex-insert.png](screenshots/04-hex-insert.png) |
+| 5. UPDATE и `\G` | [05-update-vertical.png](screenshots/05-update-vertical.png) |
+| 6. DELETE / DROP | [06-delete-drop.png](screenshots/06-delete-drop.png) |
+| 7. general_log | [07-general-log.png](screenshots/07-general-log.png) |
+| 8. Дамп и восстановление | [08-dump-restore.png](screenshots/08-dump-restore.png) |
 
 ---
 

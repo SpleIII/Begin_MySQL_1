@@ -32898,3 +32898,363 @@ Time                 Id Command    Argument
 2026-11-05T07:25:21.581692Z	    9 Connect	root@localhost on  using SSL/TLS
 2026-11-05T07:25:21.581994Z	    9 Query	shutdown
 2026-11-05T07:25:21.582584Z	    9 Query	
+C:\Users\Administrator\source\check\mysql-8.4.6-winx64\bin\mysqld.exe, Version: 8.4.6 (MySQL Community Server - GPL). started with:
+TCP Port: 3307, Named Pipe: MySQL
+Time                 Id Command    Argument
+2026-11-05T07:29:23.535129Z	    0 Execute	CREATE TABLE performance_schema.innodb_redo_log_files(
+`FILE_ID` BIGINT NOT NULL COMMENT 'Id of the file.',
+`FILE_NAME` VARCHAR(2000) NOT NULL COMMENT 'Path to the file.',
+`START_LSN` BIGINT NOT NULL COMMENT 'LSN of the first block in the file.',
+`END_LSN` BIGINT NOT NULL COMMENT 'LSN after the last block in the file.',
+`SIZE_IN_BYTES` BIGINT NOT NULL COMMENT 'Size of the file (in bytes).',
+`IS_FULL` TINYINT NOT NULL COMMENT '1 iff file has no free space inside.',
+`CONSUMER_LEVEL` INT NOT NULL COMMENT 'All redo log consumers registered on smaller levels than this value, have already consumed this file.'
+)engine = 'performance_schema'
+2026-11-05T07:29:23.994825Z	    9 Connect	root@localhost on  using SSL/TLS
+2026-11-05T07:29:23.995257Z	    9 Query	select @@version_comment limit 1
+2026-11-05T07:29:23.995716Z	    9 Query	DROP DATABASE IF EXISTS my_database
+2026-11-05T07:29:24.003311Z	    9 Query	SELECT DATABASE()
+2026-11-05T07:29:24.003492Z	    9 Query	DROP DATABASE IF EXISTS sql_practice
+2026-11-05T07:29:24.089747Z	    9 Query	SELECT DATABASE()
+2026-11-05T07:29:24.089963Z	    9 Query	DROP DATABASE IF EXISTS restore_test
+2026-11-05T07:29:24.153143Z	    9 Query	SELECT DATABASE()
+2026-11-05T07:29:24.153388Z	    9 Query	SHOW DATABASES
+2026-11-05T07:29:24.156786Z	    9 Quit	
+2026-11-05T09:44:40.781763Z	   10 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:44:40.782889Z	   10 Query	select @@version_comment limit 1
+2026-11-05T09:44:40.789768Z	   10 Query	SELECT VERSION() AS version, @@version_comment AS comment
+2026-11-05T09:44:40.794133Z	   10 Query	SHOW VARIABLES LIKE 'character_set%'
+2026-11-05T09:44:40.824715Z	   10 Query	SHOW DATABASES
+2026-11-05T09:44:40.828398Z	   10 Quit	
+2026-11-05T09:45:15.727689Z	   11 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:45:15.727991Z	   11 Query	select @@version_comment limit 1
+2026-11-05T09:45:15.730390Z	   11 Query	SELECT VERSION() AS version, @@version_comment AS comment
+2026-11-05T09:45:15.732872Z	   11 Query	SHOW VARIABLES LIKE 'character_set%'
+2026-11-05T09:45:15.750060Z	   11 Query	SHOW DATABASES
+2026-11-05T09:45:15.754024Z	   11 Quit	
+2026-11-05T09:45:34.126646Z	   12 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:45:34.126912Z	   12 Query	select @@version_comment limit 1
+2026-11-05T09:45:34.129330Z	   12 Query	SELECT VERSION() AS version, @@version_comment AS comment
+2026-11-05T09:45:34.132307Z	   12 Query	SHOW VARIABLES LIKE 'character_set%'
+2026-11-05T09:45:34.151503Z	   12 Query	SHOW DATABASES
+2026-11-05T09:45:34.154370Z	   12 Quit	
+2026-11-05T09:45:43.155956Z	   13 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:45:43.156294Z	   13 Query	select @@version_comment limit 1
+2026-11-05T09:45:43.158710Z	   13 Query	CREATE DATABASE my_database
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci
+2026-11-05T09:45:43.172257Z	   13 Query	SELECT DATABASE()
+2026-11-05T09:45:43.172595Z	   13 Init DB	my_database
+2026-11-05T09:45:43.172825Z	   13 Query	CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-05T09:45:43.240731Z	   13 Query	SHOW TABLES
+2026-11-05T09:45:43.264529Z	   13 Query	DESCRIBE users
+2026-11-05T09:45:43.278520Z	   13 Quit	
+2026-11-05T09:45:50.414948Z	   14 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:45:50.415250Z	   14 Query	select @@version_comment limit 1
+2026-11-05T09:45:50.418098Z	   14 Query	SELECT DATABASE()
+2026-11-05T09:45:50.418386Z	   14 Init DB	my_database
+2026-11-05T09:45:50.430836Z	   14 Query	INSERT INTO users (name, email) VALUES
+  ('Иван Иванов', 'ivan@example.com'),
+  ('Пётр Петров', 'petr@example.com'),
+  ('Мария Сидорова', 'maria@example.com')
+2026-11-05T09:45:50.453022Z	   14 Query	SELECT * FROM users
+2026-11-05T09:45:50.459193Z	   14 Quit	
+2026-11-05T09:46:00.734241Z	   15 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:46:00.734486Z	   15 Query	select @@version_comment limit 1
+2026-11-05T09:46:00.737101Z	   15 Query	SELECT DATABASE()
+2026-11-05T09:46:00.737356Z	   15 Init DB	my_database
+2026-11-05T09:46:00.737557Z	   15 Query	INSERT INTO users (name, email) VALUES ('Павел Иванов', 'pavel@example.com')
+2026-11-05T09:46:00.747062Z	   15 Query	INSERT INTO users (name, email) VALUES ('Марк Аврелий', 'mark@example.com')
+2026-11-05T09:46:00.756919Z	   15 Query	SELECT name, HEX(name) FROM users WHERE id = 1
+2026-11-05T09:46:00.762078Z	   15 Query	SELECT * FROM users
+2026-11-05T09:46:00.768699Z	   15 Quit	
+2026-11-05T09:46:08.456540Z	   16 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:46:08.457176Z	   16 Query	select @@version_comment limit 1
+2026-11-05T09:46:08.460175Z	   16 Query	SELECT DATABASE()
+2026-11-05T09:46:08.460543Z	   16 Init DB	my_database
+2026-11-05T09:46:08.460828Z	   16 Query	UPDATE users SET name = 'Иван Петров' WHERE id = 1
+2026-11-05T09:46:08.470935Z	   16 Query	UPDATE users SET name = 'Vasya' WHERE id = 1
+2026-11-05T09:46:08.476894Z	   16 Query	SELECT * FROM users
+2026-11-05T09:46:08.484818Z	   16 Query	SELECT name, email FROM users WHERE id = 1
+2026-11-05T09:46:08.485997Z	   16 Query	SELECT * FROM users WHERE id = 1
+2026-11-05T09:46:08.487053Z	   16 Quit	
+2026-11-05T09:46:16.005636Z	   17 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:46:16.005977Z	   17 Query	select @@version_comment limit 1
+2026-11-05T09:46:16.008358Z	   17 Query	SELECT DATABASE()
+2026-11-05T09:46:16.008611Z	   17 Init DB	my_database
+2026-11-05T09:46:16.008812Z	   17 Query	SELECT * FROM users
+2026-11-05T09:46:16.017306Z	   17 Query	DELETE FROM users WHERE id = 2
+2026-11-05T09:46:16.027012Z	   17 Query	SELECT * FROM users
+2026-11-05T09:46:16.033229Z	   17 Query	DROP TABLE users
+2026-11-05T09:46:16.069433Z	   17 Query	SHOW TABLES
+2026-11-05T09:46:16.070499Z	   17 Query	DROP DATABASE my_database
+2026-11-05T09:46:16.081465Z	   17 Query	SELECT DATABASE()
+2026-11-05T09:46:16.081842Z	   17 Query	SHOW DATABASES
+2026-11-05T09:46:16.086700Z	   17 Quit	
+2026-11-05T09:46:23.701910Z	   18 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:46:23.702130Z	   18 Query	select @@version_comment limit 1
+2026-11-05T09:46:23.704920Z	   18 Query	-- 03: база sql_practice для дампа (имя БД взято из команды mysqldump в задании)
+2026-11-05T09:46:23.705218Z	   18 Query	CREATE DATABASE sql_practice
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci
+2026-11-05T09:46:23.720084Z	   18 Query	SELECT DATABASE()
+2026-11-05T09:46:23.720378Z	   18 Init DB	sql_practice
+2026-11-05T09:46:23.720568Z	   18 Query	CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-05T09:46:23.792484Z	   18 Query	INSERT INTO users (name, email) VALUES
+  ('Иван Петров',   'ivan@example.com'),
+  ('Мария Сидорова', 'maria@example.com'),
+  ('Павел Иванов',  'pavel@example.com'),
+  ('Марк Аврелий',  'mark@example.com'),
+  ('Vasya',         'vasya@example.com')
+2026-11-05T09:46:23.802647Z	   18 Query	CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_orders_user FOREIGN KEY (user_id) REFERENCES users(id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-05T09:46:23.864921Z	   18 Query	INSERT INTO orders (user_id, amount) VALUES
+  (1, 1500.00),
+  (2, 320.50),
+  (1, 99.99)
+2026-11-05T09:46:23.874359Z	   18 Query	SELECT * FROM users
+2026-11-05T09:46:23.875794Z	   18 Query	SELECT * FROM orders
+2026-11-05T09:46:23.876075Z	   18 Query	SHOW TABLES
+2026-11-05T09:46:23.877449Z	   18 Quit	
+2026-11-05T09:46:27.484061Z	   19 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:46:27.484406Z	   19 Query	select @@version_comment limit 1
+2026-11-05T09:46:27.487549Z	   19 Query	-- Для скриншота: включаем вывод журнала и в таблицу, чтобы показать запрос из методички
+2026-11-05T09:46:27.488350Z	   19 Query	SET GLOBAL log_output = 'FILE,TABLE'
+2026-11-05T09:46:27.489007Z	   19 Query	SELECT event_time,
+       command_type,
+       LEFT(REPLACE(argument, CHAR(10), ' '), 75) AS argument
+FROM mysql.general_log
+WHERE user_host LIKE 'root%'
+  AND argument NOT LIKE '--%'
+ORDER BY event_time DESC
+LIMIT 6
+2026-11-05T09:46:27.517176Z	   19 Query	SET GLOBAL log_output = 'FILE'
+2026-11-05T09:46:27.518028Z	   19 Quit	
+2026-11-05T09:46:45.846087Z	   20 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:46:45.846368Z	   20 Query	select @@version_comment limit 1
+2026-11-05T09:46:45.848761Z	   20 Query	-- Для скриншота: включаем вывод журнала и в таблицу, чтобы показать записи из методички
+2026-11-05T09:46:45.848910Z	   20 Query	SET GLOBAL log_output = 'FILE,TABLE'
+2026-11-05T09:46:45.849052Z	   20 Query	SELECT DATABASE()
+2026-11-05T09:46:45.856602Z	   20 Init DB	sql_practice
+2026-11-05T09:46:45.870662Z	   20 Query	SELECT COUNT(*) AS users_count FROM users
+2026-11-05T09:46:45.874540Z	   20 Query	SELECT 'hello general_log' AS note
+2026-11-05T09:46:45.875272Z	   20 Query	SELECT event_time,
+       command_type,
+       LEFT(REPLACE(argument, CHAR(10), ' '), 45) AS argument
+FROM mysql.general_log
+WHERE user_host LIKE 'root%'
+  AND argument NOT LIKE '--%'
+  AND argument NOT LIKE '%general_log%'
+ORDER BY event_time DESC
+LIMIT 5
+2026-11-05T09:46:45.887905Z	   20 Query	SET GLOBAL log_output = 'FILE'
+2026-11-05T09:46:45.888602Z	   20 Quit	
+2026-11-05T09:47:06.714372Z	   21 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:47:06.714723Z	   21 Query	select @@version_comment limit 1
+2026-11-05T09:47:06.717538Z	   21 Query	-- Для скриншота: включаем вывод журнала и в таблицу, чтобы показать записи из методички
+2026-11-05T09:47:06.717835Z	   21 Query	SET GLOBAL log_output = 'FILE,TABLE'
+2026-11-05T09:47:06.718088Z	   21 Query	SELECT DATABASE()
+2026-11-05T09:47:06.726695Z	   21 Init DB	sql_practice
+2026-11-05T09:47:06.727033Z	   21 Query	SELECT COUNT(*) AS users_count FROM users
+2026-11-05T09:47:06.729280Z	   21 Query	SELECT 'mysql works' AS note
+2026-11-05T09:47:06.731434Z	   21 Query	SELECT event_time,
+       command_type,
+       LEFT(REPLACE(argument, CHAR(10), ' '), 45) AS argument
+FROM mysql.general_log
+WHERE user_host LIKE 'root%'
+  AND argument NOT LIKE '--%'
+  AND argument NOT LIKE '%general_log%'
+  AND event_time > NOW() - INTERVAL 30 MINUTE
+ORDER BY event_time DESC
+LIMIT 5
+2026-11-05T09:47:06.742758Z	   21 Query	SET GLOBAL log_output = 'FILE'
+2026-11-05T09:47:06.743472Z	   21 Quit	
+2026-11-05T09:47:15.776282Z	   22 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:47:15.777082Z	   22 Query	/*!40100 SET @@SQL_MODE='' */
+2026-11-05T09:47:15.777232Z	   22 Query	/*!40103 SET TIME_ZONE='+00:00' */
+2026-11-05T09:47:15.778190Z	   22 Query	/*!80000 SET SESSION information_schema_stats_expiry=0 */
+2026-11-05T09:47:15.778872Z	   22 Query	SET SESSION NET_READ_TIMEOUT= 86400, SESSION NET_WRITE_TIMEOUT= 86400
+2026-11-05T09:47:15.779056Z	   22 Query	SHOW VARIABLES LIKE 'gtid_mode'
+2026-11-05T09:47:15.781412Z	   22 Query	SELECT LOGFILE_GROUP_NAME, FILE_NAME, TOTAL_EXTENTS, INITIAL_SIZE, ENGINE, EXTRA FROM INFORMATION_SCHEMA.FILES WHERE ENGINE = 'ndbcluster' AND FILE_TYPE = 'UNDO LOG' AND FILE_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IN (SELECT DISTINCT LOGFILE_GROUP_NAME FROM INFORMATION_SCHEMA.FILES WHERE ENGINE = 'ndbcluster' AND FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('sql_practice'))) GROUP BY LOGFILE_GROUP_NAME, FILE_NAME, ENGINE, TOTAL_EXTENTS, INITIAL_SIZE ORDER BY LOGFILE_GROUP_NAME
+2026-11-05T09:47:15.791462Z	   22 Query	SELECT DISTINCT TABLESPACE_NAME, FILE_NAME, LOGFILE_GROUP_NAME, EXTENT_SIZE, INITIAL_SIZE, ENGINE FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('sql_practice')) ORDER BY TABLESPACE_NAME, LOGFILE_GROUP_NAME
+2026-11-05T09:47:15.792820Z	   22 Query	SHOW VARIABLES LIKE 'ndbinfo\_version'
+2026-11-05T09:47:15.794126Z	   22 Init DB	sql_practice
+2026-11-05T09:47:15.794322Z	   22 Query	show tables
+2026-11-05T09:47:15.795361Z	   22 Query	LOCK TABLES `orders` READ /*!32311 LOCAL */,`users` READ /*!32311 LOCAL */
+2026-11-05T09:47:15.795737Z	   22 Query	show table status like 'orders'
+2026-11-05T09:47:15.797205Z	   22 Query	SET SQL_QUOTE_SHOW_CREATE=1
+2026-11-05T09:47:15.797408Z	   22 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.797595Z	   22 Query	show create table `orders`
+2026-11-05T09:47:15.798275Z	   22 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.798435Z	   22 Query	show fields from `orders`
+2026-11-05T09:47:15.799437Z	   22 Query	show fields from `orders`
+2026-11-05T09:47:15.800329Z	   22 Query	SELECT /*!40001 SQL_NO_CACHE */ * FROM `orders`
+2026-11-05T09:47:15.800627Z	   22 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.800825Z	   22 Query	use `sql_practice`
+2026-11-05T09:47:15.801097Z	   22 Query	select @@collation_database
+2026-11-05T09:47:15.801294Z	   22 Query	SHOW TRIGGERS LIKE 'orders'
+2026-11-05T09:47:15.802994Z	   22 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.803203Z	   22 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.803424Z	   22 Query	SELECT COLUMN_NAME,                       JSON_EXTRACT(HISTOGRAM, '$."number-of-buckets-specified"')                FROM information_schema.COLUMN_STATISTICS                WHERE SCHEMA_NAME = 'sql_practice' AND TABLE_NAME = 'orders'
+2026-11-05T09:47:15.805293Z	   22 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.805508Z	   22 Query	show table status like 'users'
+2026-11-05T09:47:15.807483Z	   22 Query	SET SQL_QUOTE_SHOW_CREATE=1
+2026-11-05T09:47:15.807679Z	   22 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.807882Z	   22 Query	show create table `users`
+2026-11-05T09:47:15.808261Z	   22 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.808474Z	   22 Query	show fields from `users`
+2026-11-05T09:47:15.809433Z	   22 Query	show fields from `users`
+2026-11-05T09:47:15.810232Z	   22 Query	SELECT /*!40001 SQL_NO_CACHE */ * FROM `users`
+2026-11-05T09:47:15.810494Z	   22 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.810661Z	   22 Query	use `sql_practice`
+2026-11-05T09:47:15.810877Z	   22 Query	select @@collation_database
+2026-11-05T09:47:15.811069Z	   22 Query	SHOW TRIGGERS LIKE 'users'
+2026-11-05T09:47:15.811736Z	   22 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.811870Z	   22 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.812172Z	   22 Query	SELECT COLUMN_NAME,                       JSON_EXTRACT(HISTOGRAM, '$."number-of-buckets-specified"')                FROM information_schema.COLUMN_STATISTICS                WHERE SCHEMA_NAME = 'sql_practice' AND TABLE_NAME = 'users'
+2026-11-05T09:47:15.812480Z	   22 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.812659Z	   22 Query	UNLOCK TABLES
+2026-11-05T09:47:15.816472Z	   22 Quit	
+2026-11-05T09:47:15.879550Z	   23 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:47:15.879752Z	   23 Query	/*!40100 SET @@SQL_MODE='' */
+2026-11-05T09:47:15.879925Z	   23 Query	/*!40103 SET TIME_ZONE='+00:00' */
+2026-11-05T09:47:15.880069Z	   23 Query	/*!80000 SET SESSION information_schema_stats_expiry=0 */
+2026-11-05T09:47:15.880262Z	   23 Query	SET SESSION NET_READ_TIMEOUT= 86400, SESSION NET_WRITE_TIMEOUT= 86400
+2026-11-05T09:47:15.880493Z	   23 Query	SHOW VARIABLES LIKE 'gtid_mode'
+2026-11-05T09:47:15.882442Z	   23 Query	SELECT LOGFILE_GROUP_NAME, FILE_NAME, TOTAL_EXTENTS, INITIAL_SIZE, ENGINE, EXTRA FROM INFORMATION_SCHEMA.FILES WHERE ENGINE = 'ndbcluster' AND FILE_TYPE = 'UNDO LOG' AND FILE_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IN (SELECT DISTINCT LOGFILE_GROUP_NAME FROM INFORMATION_SCHEMA.FILES WHERE ENGINE = 'ndbcluster' AND FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('sql_practice'))) GROUP BY LOGFILE_GROUP_NAME, FILE_NAME, ENGINE, TOTAL_EXTENTS, INITIAL_SIZE ORDER BY LOGFILE_GROUP_NAME
+2026-11-05T09:47:15.885189Z	   23 Query	SELECT DISTINCT TABLESPACE_NAME, FILE_NAME, LOGFILE_GROUP_NAME, EXTENT_SIZE, INITIAL_SIZE, ENGINE FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('sql_practice')) ORDER BY TABLESPACE_NAME, LOGFILE_GROUP_NAME
+2026-11-05T09:47:15.886556Z	   23 Query	SHOW VARIABLES LIKE 'ndbinfo\_version'
+2026-11-05T09:47:15.888331Z	   23 Init DB	sql_practice
+2026-11-05T09:47:15.888533Z	   23 Query	show tables
+2026-11-05T09:47:15.890637Z	   23 Query	LOCK TABLES `orders` READ /*!32311 LOCAL */,`users` READ /*!32311 LOCAL */
+2026-11-05T09:47:15.891363Z	   23 Query	show table status like 'orders'
+2026-11-05T09:47:15.892457Z	   23 Query	SET SQL_QUOTE_SHOW_CREATE=1
+2026-11-05T09:47:15.892704Z	   23 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.892921Z	   23 Query	show create table `orders`
+2026-11-05T09:47:15.893279Z	   23 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.893515Z	   23 Query	show fields from `orders`
+2026-11-05T09:47:15.894585Z	   23 Query	show fields from `orders`
+2026-11-05T09:47:15.895488Z	   23 Query	SELECT /*!40001 SQL_NO_CACHE */ * FROM `orders`
+2026-11-05T09:47:15.895832Z	   23 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.896038Z	   23 Query	use `sql_practice`
+2026-11-05T09:47:15.896265Z	   23 Query	select @@collation_database
+2026-11-05T09:47:15.896495Z	   23 Query	SHOW TRIGGERS LIKE 'orders'
+2026-11-05T09:47:15.897435Z	   23 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.897643Z	   23 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.897922Z	   23 Query	SELECT COLUMN_NAME,                       JSON_EXTRACT(HISTOGRAM, '$."number-of-buckets-specified"')                FROM information_schema.COLUMN_STATISTICS                WHERE SCHEMA_NAME = 'sql_practice' AND TABLE_NAME = 'orders'
+2026-11-05T09:47:15.898401Z	   23 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.898655Z	   23 Query	show table status like 'users'
+2026-11-05T09:47:15.899673Z	   23 Query	SET SQL_QUOTE_SHOW_CREATE=1
+2026-11-05T09:47:15.899877Z	   23 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.900116Z	   23 Query	show create table `users`
+2026-11-05T09:47:15.900450Z	   23 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.900659Z	   23 Query	show fields from `users`
+2026-11-05T09:47:15.901613Z	   23 Query	show fields from `users`
+2026-11-05T09:47:15.902562Z	   23 Query	SELECT /*!40001 SQL_NO_CACHE */ * FROM `users`
+2026-11-05T09:47:15.902859Z	   23 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.903050Z	   23 Query	use `sql_practice`
+2026-11-05T09:47:15.903265Z	   23 Query	select @@collation_database
+2026-11-05T09:47:15.903481Z	   23 Query	SHOW TRIGGERS LIKE 'users'
+2026-11-05T09:47:15.904269Z	   23 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.904462Z	   23 Query	SET SESSION character_set_results = 'binary'
+2026-11-05T09:47:15.904675Z	   23 Query	SELECT COLUMN_NAME,                       JSON_EXTRACT(HISTOGRAM, '$."number-of-buckets-specified"')                FROM information_schema.COLUMN_STATISTICS                WHERE SCHEMA_NAME = 'sql_practice' AND TABLE_NAME = 'users'
+2026-11-05T09:47:15.904978Z	   23 Query	SET SESSION character_set_results = 'utf8mb4'
+2026-11-05T09:47:15.905217Z	   23 Query	UNLOCK TABLES
+2026-11-05T09:47:15.908322Z	   23 Quit	
+2026-11-05T09:47:15.969577Z	   24 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:47:15.969876Z	   24 Query	select @@version_comment limit 1
+2026-11-05T09:47:15.970331Z	   24 Query	DROP DATABASE IF EXISTS restore_test
+2026-11-05T09:47:15.974952Z	   24 Query	SELECT DATABASE()
+2026-11-05T09:47:15.975201Z	   24 Query	CREATE DATABASE restore_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-05T09:47:15.989693Z	   24 Quit	
+2026-11-05T09:47:16.047390Z	   25 Connect	root@localhost on restore_test using SSL/TLS
+2026-11-05T09:47:16.047847Z	   25 Query	select @@version_comment limit 1
+2026-11-05T09:47:16.050298Z	   25 Query	-- MySQL dump 10.13  Distrib 8.4.6, for Win64 (x86_64)
+2026-11-05T09:47:16.050520Z	   25 Query	--
+2026-11-05T09:47:16.050737Z	   25 Query	-- Host: localhost    Database: sql_practice
+2026-11-05T09:47:16.050926Z	   25 Query	-- ------------------------------------------------------
+2026-11-05T09:47:16.051161Z	   25 Query	-- Server version	8.4.6
+2026-11-05T09:47:16.051373Z	   25 Query	/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */
+2026-11-05T09:47:16.053050Z	   25 Query	/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */
+2026-11-05T09:47:16.053275Z	   25 Query	/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */
+2026-11-05T09:47:16.053415Z	   25 Query	/*!50503 SET NAMES utf8mb4 */
+2026-11-05T09:47:16.054836Z	   25 Query	/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */
+2026-11-05T09:47:16.055137Z	   25 Query	/*!40103 SET TIME_ZONE='+00:00' */
+2026-11-05T09:47:16.055367Z	   25 Query	/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */
+2026-11-05T09:47:16.055532Z	   25 Query	/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */
+2026-11-05T09:47:16.055662Z	   25 Query	/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */
+2026-11-05T09:47:16.055829Z	   25 Query	/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */
+2026-11-05T09:47:16.055979Z	   25 Query	--
+2026-11-05T09:47:16.056142Z	   25 Query	-- Table structure for table `orders`
+2026-11-05T09:47:16.056264Z	   25 Query	--
+2026-11-05T09:47:16.056396Z	   25 Query	DROP TABLE IF EXISTS `orders`
+2026-11-05T09:47:16.060576Z	   25 Query	/*!40101 SET @saved_cs_client     = @@character_set_client */
+2026-11-05T09:47:16.060854Z	   25 Query	/*!50503 SET character_set_client = utf8mb4 */
+2026-11-05T09:47:16.061203Z	   25 Query	CREATE TABLE `orders` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_orders_user` (`user_id`),
+  CONSTRAINT `fk_orders_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+2026-11-05T09:47:16.118874Z	   25 Query	/*!40101 SET character_set_client = @saved_cs_client */
+2026-11-05T09:47:16.119083Z	   25 Query	--
+2026-11-05T09:47:16.119261Z	   25 Query	-- Dumping data for table `orders`
+2026-11-05T09:47:16.119426Z	   25 Query	--
+2026-11-05T09:47:16.119609Z	   25 Query	LOCK TABLES `orders` WRITE
+2026-11-05T09:47:16.121511Z	   25 Query	/*!40000 ALTER TABLE `orders` DISABLE KEYS */
+2026-11-05T09:47:16.130171Z	   25 Query	INSERT INTO `orders` VALUES (1,1,1500.00,'2026-11-05 09:46:23'),(2,2,320.50,'2026-11-05 09:46:23'),(3,1,99.99,'2026-11-05 09:46:23')
+2026-11-05T09:47:16.140193Z	   25 Query	/*!40000 ALTER TABLE `orders` ENABLE KEYS */
+2026-11-05T09:47:16.147901Z	   25 Query	UNLOCK TABLES
+2026-11-05T09:47:16.148209Z	   25 Query	--
+2026-11-05T09:47:16.148452Z	   25 Query	-- Table structure for table `users`
+2026-11-05T09:47:16.148655Z	   25 Query	--
+2026-11-05T09:47:16.148861Z	   25 Query	DROP TABLE IF EXISTS `users`
+2026-11-05T09:47:16.155109Z	   25 Query	/*!40101 SET @saved_cs_client     = @@character_set_client */
+2026-11-05T09:47:16.155332Z	   25 Query	/*!50503 SET character_set_client = utf8mb4 */
+2026-11-05T09:47:16.155626Z	   25 Query	CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+2026-11-05T09:47:16.221029Z	   25 Query	/*!40101 SET character_set_client = @saved_cs_client */
+2026-11-05T09:47:16.221244Z	   25 Query	--
+2026-11-05T09:47:16.221402Z	   25 Query	-- Dumping data for table `users`
+2026-11-05T09:47:16.221562Z	   25 Query	--
+2026-11-05T09:47:16.221749Z	   25 Query	LOCK TABLES `users` WRITE
+2026-11-05T09:47:16.223190Z	   25 Query	/*!40000 ALTER TABLE `users` DISABLE KEYS */
+2026-11-05T09:47:16.226838Z	   25 Query	INSERT INTO `users` VALUES (1,'Иван Петров','ivan@example.com'),(2,'Мария Сидорова','maria@example.com'),(3,'Павел Иванов','pavel@example.com'),(4,'Марк Аврелий','mark@example.com'),(5,'Vasya','vasya@example.com')
+2026-11-05T09:47:16.234441Z	   25 Query	/*!40000 ALTER TABLE `users` ENABLE KEYS */
+2026-11-05T09:47:16.242424Z	   25 Query	UNLOCK TABLES
+2026-11-05T09:47:16.242756Z	   25 Query	/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */
+2026-11-05T09:47:16.243036Z	   25 Query	/*!40101 SET SQL_MODE=@OLD_SQL_MODE */
+2026-11-05T09:47:16.243229Z	   25 Query	/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */
+2026-11-05T09:47:16.243490Z	   25 Query	/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */
+2026-11-05T09:47:16.243720Z	   25 Query	/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
+2026-11-05T09:47:16.243934Z	   25 Query	/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */
+2026-11-05T09:47:16.244173Z	   25 Query	/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */
+2026-11-05T09:47:16.244399Z	   25 Query	/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */
+2026-11-05T09:47:16.244616Z	   25 Query	-- Dump completed on 2026-11-05 12:47:15
+2026-11-05T09:47:16.245200Z	   25 Quit	
+2026-11-05T09:47:16.291753Z	   26 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:47:16.292026Z	   26 Query	select @@version_comment limit 1
+2026-11-05T09:47:16.292503Z	   26 Query	SELECT COUNT(*) AS users_rows FROM restore_test.users
+2026-11-05T09:47:16.294821Z	   26 Query	SELECT COUNT(*) AS orders_rows FROM restore_test.orders
+2026-11-05T09:47:16.296594Z	   26 Quit	
