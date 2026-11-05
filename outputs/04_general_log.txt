@@ -1,0 +1,61 @@
+mysql: [Warning] Using a password on the command line interface can be insecure.
++----------------------------+--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| event_time                 | command_type | argument                                                                                                                                                                                                                                                                                                |
++----------------------------+--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2026-11-05 10:21:38.906683 | Query        | SELECT event_time, command_type, argument
+FROM mysql.general_log
+WHERE user_host LIKE 'root%'
+  AND argument NOT LIKE '--%'
+ORDER BY event_time DESC
+LIMIT 15                                                                                                                                           |
+| 2026-11-05 10:21:21.619856 | Query        | SET GLOBAL log_output = 'FILE'                                                                                                                                                                                                                                                                          |
+| 2026-11-05 10:21:21.618893 | Query        | SELECT event_time, command_type, argument
+FROM mysql.general_log
+WHERE user_host LIKE 'root@%'
+  AND argument NOT LIKE 'SET NAMES%'
+  AND argument NOT LIKE 'SHOW VARIABLES%'
+  AND argument NOT LIKE 'SELECT @@%'
+  AND argument NOT LIKE 'SET SESSION sql_log_off%'
+ORDER BY event_time DESC
+LIMIT 20 |
+| 2026-11-05 10:21:21.611145 | Query        | SELECT event_time, command_type, argument
+FROM mysql.general_log
+WHERE user_host LIKE 'root@%'
+ORDER BY event_time DESC
+LIMIT 20                                                                                                                                                                        |
++----------------------------+--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++----------------------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| event_time                 | command_type | argument                                                                                                                                                                                                                                                                                                                             |
++----------------------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2026-11-05 10:21:38.907318 | Query        | SELECT event_time, command_type, argument
+FROM mysql.general_log
+WHERE user_host LIKE 'root%'
+  AND argument NOT LIKE '--%'
+  AND argument NOT LIKE 'SET NAMES%'
+  AND argument NOT LIKE 'SHOW VARIABLES%'
+  AND argument NOT LIKE 'SELECT @@%'
+  AND argument NOT LIKE 'SET SESSION sql_log_off%'
+ORDER BY event_time DESC
+LIMIT 15 |
+| 2026-11-05 10:21:38.906683 | Query        | SELECT event_time, command_type, argument
+FROM mysql.general_log
+WHERE user_host LIKE 'root%'
+  AND argument NOT LIKE '--%'
+ORDER BY event_time DESC
+LIMIT 15                                                                                                                                                                        |
+| 2026-11-05 10:21:21.619856 | Query        | SET GLOBAL log_output = 'FILE'                                                                                                                                                                                                                                                                                                       |
+| 2026-11-05 10:21:21.618893 | Query        | SELECT event_time, command_type, argument
+FROM mysql.general_log
+WHERE user_host LIKE 'root@%'
+  AND argument NOT LIKE 'SET NAMES%'
+  AND argument NOT LIKE 'SHOW VARIABLES%'
+  AND argument NOT LIKE 'SELECT @@%'
+  AND argument NOT LIKE 'SET SESSION sql_log_off%'
+ORDER BY event_time DESC
+LIMIT 20                              |
+| 2026-11-05 10:21:21.611145 | Query        | SELECT event_time, command_type, argument
+FROM mysql.general_log
+WHERE user_host LIKE 'root@%'
+ORDER BY event_time DESC
+LIMIT 20                                                                                                                                                                                                     |
++----------------------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+

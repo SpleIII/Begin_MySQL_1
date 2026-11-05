@@ -1,0 +1,11 @@
+mysql: [Warning] Using a password on the command line interface can be insecure.
++-----------------------+
+| marker                |
++-----------------------+
+| SQL_LOG_OFF_ON_MARKER |
++-----------------------+
++------------------------+
+| marker                 |
++------------------------+
+| SQL_LOG_OFF_OFF_MARKER |
++------------------------+
