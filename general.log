@@ -33258,3 +33258,145 @@ LIMIT 5
 2026-11-05T09:47:16.292503Z	   26 Query	SELECT COUNT(*) AS users_rows FROM restore_test.users
 2026-11-05T09:47:16.294821Z	   26 Query	SELECT COUNT(*) AS orders_rows FROM restore_test.orders
 2026-11-05T09:47:16.296594Z	   26 Quit	
+2026-11-05T09:48:28.774950Z	   27 Connect	root@localhost on  using SSL/TLS
+2026-11-05T09:48:28.775214Z	   27 Query	shutdown
+2026-11-05T09:48:28.777080Z	   27 Query	
+C:\Users\Administrator\source\check\mysql-8.4.6-winx64\bin\mysqld.exe, Version: 8.4.6 (MySQL Community Server - GPL). started with:
+TCP Port: 3307, Named Pipe: MySQL
+Time                 Id Command    Argument
+2026-11-20T10:31:02.946885Z	    0 Execute	CREATE TABLE performance_schema.innodb_redo_log_files(
+`FILE_ID` BIGINT NOT NULL COMMENT 'Id of the file.',
+`FILE_NAME` VARCHAR(2000) NOT NULL COMMENT 'Path to the file.',
+`START_LSN` BIGINT NOT NULL COMMENT 'LSN of the first block in the file.',
+`END_LSN` BIGINT NOT NULL COMMENT 'LSN after the last block in the file.',
+`SIZE_IN_BYTES` BIGINT NOT NULL COMMENT 'Size of the file (in bytes).',
+`IS_FULL` TINYINT NOT NULL COMMENT '1 iff file has no free space inside.',
+`CONSUMER_LEVEL` INT NOT NULL COMMENT 'All redo log consumers registered on smaller levels than this value, have already consumed this file.'
+)engine = 'performance_schema'
+2026-11-20T10:31:04.737021Z	    9 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:31:04.739736Z	    9 Query	select @@version_comment limit 1
+2026-11-20T10:31:04.750376Z	    9 Query	-- 01_setup.sql
+2026-11-20T10:31:04.750621Z	    9 Query	CREATE DATABASE IF NOT EXISTS index_practice
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci
+2026-11-20T10:31:04.765972Z	    9 Query	SELECT DATABASE()
+2026-11-20T10:31:04.766352Z	    9 Init DB	index_practice
+2026-11-20T10:31:04.766624Z	    9 Query	CREATE TABLE IF NOT EXISTS customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    city VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-20T10:31:04.910746Z	    9 Query	CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'new',
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-20T10:31:05.001533Z	    9 Query	SET FOREIGN_KEY_CHECKS = 0
+2026-11-20T10:31:05.002777Z	    9 Query	DELETE FROM orders
+2026-11-20T10:31:05.010232Z	    9 Query	DELETE FROM customers
+2026-11-20T10:31:05.011447Z	    9 Query	ALTER TABLE customers AUTO_INCREMENT = 1
+2026-11-20T10:31:05.040161Z	    9 Query	ALTER TABLE orders AUTO_INCREMENT = 1
+2026-11-20T10:31:05.057828Z	    9 Query	SET FOREIGN_KEY_CHECKS = 1
+2026-11-20T10:31:05.058687Z	    9 Query	INSERT INTO customers (name, email, city) VALUES
+  ('Иван Иванов', 'ivan@example.com', 'Москва'),
+  ('Пётр Петров', 'petr@example.com', 'Санкт-Петербург'),
+  ('Мария Сидорова', 'maria@example.com', 'Москва'),
+  ('Алексей Смирнов', 'alex@example.com', 'Казань'),
+  ('Ольга Кузнецова', 'olga@example.com', 'Новосибирск')
+2026-11-20T10:31:05.071800Z	    9 Query	INSERT INTO orders (customer_id, order_date, amount, status) VALUES
+  (1, '2026-10-01', 1500.00, 'paid'),
+  (1, '2026-10-05', 2300.50, 'paid'),
+  (2, '2026-10-03', 800.00, 'new'),
+  (3, '2026-10-07', 4200.00, 'paid'),
+  (3, '2026-10-10', 1100.00, 'cancelled'),
+  (4, '2026-10-12', 950.00, 'new')
+2026-11-20T10:31:05.080442Z	    9 Query	SHOW TABLES
+2026-11-20T10:31:05.106059Z	    9 Query	SELECT * FROM customers
+2026-11-20T10:31:05.106509Z	    9 Query	SELECT * FROM orders
+2026-11-20T10:31:05.107509Z	    9 Quit	
+2026-11-20T10:31:11.104197Z	   10 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:31:11.104432Z	   10 Query	select @@version_comment limit 1
+2026-11-20T10:31:11.108554Z	   10 Query	-- 02_explain_before.sql
+2026-11-20T10:31:11.108899Z	   10 Query	SELECT DATABASE()
+2026-11-20T10:31:11.109279Z	   10 Init DB	index_practice
+2026-11-20T10:31:11.109599Z	   10 Query	SHOW INDEX FROM orders
+2026-11-20T10:31:11.139509Z	   10 Query	EXPLAIN SELECT * FROM orders WHERE amount > 1000
+2026-11-20T10:31:11.142168Z	   10 Quit	
+2026-11-20T10:31:11.249872Z	   11 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:31:11.250207Z	   11 Query	select @@version_comment limit 1
+2026-11-20T10:31:11.257457Z	   11 Query	-- 03_explain_after_amount.sql
+2026-11-20T10:31:11.257775Z	   11 Query	SELECT DATABASE()
+2026-11-20T10:31:11.258202Z	   11 Init DB	index_practice
+2026-11-20T10:31:11.258446Z	   11 Query	CREATE INDEX idx_amount ON orders(amount)
+2026-11-20T10:31:11.331953Z	   11 Query	SHOW INDEX FROM orders
+2026-11-20T10:31:11.344868Z	   11 Query	EXPLAIN SELECT * FROM orders WHERE amount > 1000
+2026-11-20T10:31:11.349310Z	   11 Quit	
+2026-11-20T10:31:11.455235Z	   12 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:31:11.455686Z	   12 Query	select @@version_comment limit 1
+2026-11-20T10:31:11.461487Z	   12 Query	-- 04_function_index.sql
+2026-11-20T10:31:11.461676Z	   12 Query	SELECT DATABASE()
+2026-11-20T10:31:11.461856Z	   12 Init DB	index_practice
+2026-11-20T10:31:11.462471Z	   12 Query	EXPLAIN SELECT * FROM orders WHERE YEAR(order_date) = 2026
+2026-11-20T10:31:11.463415Z	   12 Query	CREATE INDEX idx_order_date ON orders(order_date)
+2026-11-20T10:31:11.527623Z	   12 Query	SHOW INDEX FROM orders
+2026-11-20T10:31:11.534131Z	   12 Query	EXPLAIN SELECT * FROM orders
+WHERE order_date >= '2026-01-01'
+  AND order_date < '2027-01-01'
+2026-11-20T10:31:11.537325Z	   12 Quit	
+2026-11-20T10:31:11.629223Z	   13 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:31:11.629698Z	   13 Query	select @@version_comment limit 1
+2026-11-20T10:31:11.636019Z	   13 Query	-- 05_composite_index.sql
+2026-11-20T10:31:11.636226Z	   13 Query	SELECT DATABASE()
+2026-11-20T10:31:11.636457Z	   13 Init DB	index_practice
+2026-11-20T10:31:11.636585Z	   13 Query	CREATE INDEX idx_status_amount
+    ON orders(status, amount)
+2026-11-20T10:31:11.693179Z	   13 Query	SHOW INDEX FROM orders
+2026-11-20T10:31:11.703608Z	   13 Query	EXPLAIN SELECT * FROM orders WHERE status = 'paid'
+2026-11-20T10:31:11.703964Z	   13 Query	EXPLAIN SELECT * FROM orders
+WHERE status = 'paid' AND amount > 1000
+2026-11-20T10:31:11.704231Z	   13 Query	DROP INDEX idx_amount ON orders
+2026-11-20T10:31:11.735005Z	   13 Query	EXPLAIN SELECT * FROM orders WHERE amount > 1000
+2026-11-20T10:31:11.735452Z	   13 Query	CREATE INDEX idx_amount ON orders(amount)
+2026-11-20T10:31:11.795433Z	   13 Quit	
+2026-11-20T10:31:11.889233Z	   14 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:31:11.889532Z	   14 Query	select @@version_comment limit 1
+2026-11-20T10:31:11.894368Z	   14 Query	-- 06_covering_index.sql
+2026-11-20T10:31:11.894717Z	   14 Query	SELECT DATABASE()
+2026-11-20T10:31:11.894942Z	   14 Init DB	index_practice
+2026-11-20T10:31:11.895286Z	   14 Query	CREATE INDEX idx_customer_amount
+    ON orders(customer_id, amount)
+2026-11-20T10:31:12.102394Z	   14 Query	EXPLAIN SELECT customer_id, SUM(amount)
+FROM orders
+GROUP BY customer_id
+2026-11-20T10:31:12.105523Z	   14 Quit	
+2026-11-20T10:31:12.191656Z	   15 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:31:12.191962Z	   15 Query	select @@version_comment limit 1
+2026-11-20T10:31:12.198564Z	   15 Query	-- 07_explain_analyze.sql
+2026-11-20T10:31:12.198789Z	   15 Query	SELECT DATABASE()
+2026-11-20T10:31:12.199115Z	   15 Init DB	index_practice
+2026-11-20T10:31:12.199381Z	   15 Query	EXPLAIN ANALYZE
+SELECT * FROM orders
+WHERE amount > 1000
+2026-11-20T10:31:12.206098Z	   15 Quit	
+2026-11-20T10:33:28.146859Z	   16 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:33:28.147135Z	   16 Query	select @@version_comment limit 1
+2026-11-20T10:33:28.157683Z	   16 Query	SELECT DATABASE()
+2026-11-20T10:33:28.158364Z	   16 Init DB	index_practice
+2026-11-20T10:33:28.161131Z	   16 Query	SHOW INDEX FROM orders
+2026-11-20T10:33:28.247903Z	   16 Query	EXPLAIN SELECT * FROM orders WHERE amount > 1000
+2026-11-20T10:33:28.260841Z	   16 Quit	
+2026-11-20T10:33:45.530618Z	   17 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:33:45.530969Z	   17 Query	select @@version_comment limit 1
+2026-11-20T10:33:45.534019Z	   17 Query	SELECT DATABASE()
+2026-11-20T10:33:45.534302Z	   17 Init DB	index_practice
+2026-11-20T10:33:45.534507Z	   17 Query	SHOW INDEX FROM orders
+2026-11-20T10:33:45.575299Z	   17 Query	EXPLAIN SELECT * FROM orders WHERE amount > 1000
+2026-11-20T10:33:45.583819Z	   17 Quit	
+2026-11-20T10:36:01.582127Z	   19 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:36:01.582343Z	   19 Query	select @@version_comment limit 1
+2026-11-20T10:36:01.583361Z	   19 Query	SET GLOBAL general_log='OFF'

@@ -22,6 +22,7 @@ public class WinCap {
     [DllImport("user32.dll")] public static extern bool BringWindowToTop(IntPtr hWnd);
     [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
     [DllImport("user32.dll")] public static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+    [DllImport("user32.dll")] public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
     [DllImport("dwmapi.dll")] public static extern int DwmGetWindowAttribute(IntPtr hwnd, int dwAttribute, out RECT pvAttribute, int cbAttribute);
     public struct RECT { public int Left; public int Top; public int Right; public int Bottom; }
 }
@@ -32,6 +33,11 @@ $scene = (Resolve-Path $SceneFile).Path
 $outPath = [System.IO.Path]::GetFullPath((Join-Path (Get-Location) $Output))
 $outDir = Split-Path -Parent $outPath
 if (-not (Test-Path $outDir)) { New-Item -ItemType Directory -Path $outDir | Out-Null }
+
+# The scene writes this file when all commands have finished and output is on screen.
+$readyFile = Join-Path $env:TEMP ("scene_ready_" + [guid]::NewGuid().ToString('N') + ".flag")
+Remove-Item $readyFile -ErrorAction SilentlyContinue
+$env:SCENE_READY_FILE = $readyFile
 
 $proc = Start-Process powershell.exe -ArgumentList @(
     '-NoLogo', '-NoExit', '-ExecutionPolicy', 'Bypass', '-File', $scene
@@ -48,6 +54,13 @@ if ($handle -eq [IntPtr]::Zero) {
     throw 'Console window was not created.'
 }
 
+# Wait for the scene to finish printing before measuring the window.
+for ($i = 0; $i -lt 120; $i++) {
+    if (Test-Path $readyFile) { break }
+    Start-Sleep -Milliseconds 250
+}
+Start-Sleep -Milliseconds 500
+
 [WinCap]::ShowWindow($handle, 9) | Out-Null          # SW_RESTORE
 
 $sizeRect = New-Object WinCap+RECT
@@ -58,6 +71,8 @@ $winH = $sizeRect.Bottom - $sizeRect.Top
 [WinCap]::MoveWindow($handle, 60, 60, $winW, $winH, $true) | Out-Null
 [WinCap]::BringWindowToTop($handle) | Out-Null
 [WinCap]::SetForegroundWindow($handle) | Out-Null
+# HWND_TOPMOST = -1, SWP_SHOWWINDOW = 0x40: keep the console above other windows
+[WinCap]::SetWindowPos($handle, [IntPtr](-1), 60, 60, $winW, $winH, 0x40) | Out-Null
 Start-Sleep -Milliseconds 2000
 
 # DWMWA_EXTENDED_FRAME_BOUNDS = 9: visible frame without the DWM shadow margins
@@ -76,5 +91,6 @@ $bmp.Save($outPath, [System.Drawing.Imaging.ImageFormat]::Png)
 $g.Dispose()
 $bmp.Dispose()
 
+Remove-Item $readyFile -ErrorAction SilentlyContinue
 Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue
 Write-Host "Saved: $outPath ($w x $h)"

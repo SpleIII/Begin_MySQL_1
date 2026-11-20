@@ -1,0 +1,70 @@
+2026-11-20T10:36:19.999921Z	   29 Query	CREATE DATABASE IF NOT EXISTS index_practice
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci
+2026-11-20T10:36:20.005125Z	   29 Query	SET FOREIGN_KEY_CHECKS = 0
+2026-11-20T10:36:20.007192Z	   29 Query	DROP TABLE IF EXISTS orders
+2026-11-20T10:36:20.070508Z	   29 Query	DROP TABLE IF EXISTS customers
+2026-11-20T10:36:20.113535Z	   29 Query	SET FOREIGN_KEY_CHECKS = 1
+2026-11-20T10:36:20.113692Z	   29 Query	CREATE TABLE IF NOT EXISTS customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    city VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-20T10:36:20.175314Z	   29 Query	CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'new',
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-20T10:36:20.257695Z	   29 Query	SET FOREIGN_KEY_CHECKS = 0
+2026-11-20T10:36:20.257904Z	   29 Query	ALTER TABLE customers AUTO_INCREMENT = 1
+2026-11-20T10:36:20.281023Z	   29 Query	ALTER TABLE orders AUTO_INCREMENT = 1
+2026-11-20T10:36:20.301321Z	   29 Query	SET FOREIGN_KEY_CHECKS = 1
+2026-11-20T10:36:20.301601Z	   29 Query	INSERT INTO customers (name, email, city) VALUES
+  ('Иван Иванов', 'ivan@example.com', 'Москва'),
+  ('Пётр Петров', 'petr@example.com', 'Санкт-Петербург'),
+  ('Мария Сидорова', 'maria@example.com', 'Москва'),
+  ('Алексей Смирнов', 'alex@example.com', 'Казань'),
+  ('Ольга Кузнецова', 'olga@example.com', 'Новосибирск')
+2026-11-20T10:36:20.312733Z	   29 Query	INSERT INTO orders (customer_id, order_date, amount, status) VALUES
+  (1, '2026-10-01', 1500.00, 'paid'),
+  (1, '2026-10-05', 2300.50, 'paid'),
+  (2, '2026-10-03', 800.00, 'new'),
+  (3, '2026-10-07', 4200.00, 'paid'),
+  (3, '2026-10-10', 1100.00, 'cancelled'),
+  (4, '2026-10-12', 950.00, 'new')
+2026-11-20T10:36:20.322056Z	   29 Query	SHOW TABLES
+2026-11-20T10:36:20.324367Z	   29 Query	SELECT * FROM customers
+2026-11-20T10:36:20.325314Z	   29 Query	SELECT * FROM orders
+2026-11-20T10:36:20.512016Z	   30 Query	SHOW INDEX FROM orders
+2026-11-20T10:36:20.522359Z	   30 Query	EXPLAIN SELECT * FROM orders WHERE amount > 1000
+2026-11-20T10:36:20.710508Z	   31 Query	CREATE INDEX idx_amount ON orders(amount)
+2026-11-20T10:36:20.819222Z	   31 Query	SHOW INDEX FROM orders
+2026-11-20T10:36:20.827906Z	   31 Query	EXPLAIN SELECT * FROM orders WHERE amount > 1000
+2026-11-20T10:36:20.933433Z	   32 Query	EXPLAIN SELECT * FROM orders WHERE YEAR(order_date) = 2026
+2026-11-20T10:36:20.933884Z	   32 Query	CREATE INDEX idx_order_date ON orders(order_date)
+2026-11-20T10:36:20.995479Z	   32 Query	SHOW INDEX FROM orders
+2026-11-20T10:36:21.003047Z	   32 Query	EXPLAIN SELECT * FROM orders
+WHERE order_date >= '2026-01-01'
+  AND order_date < '2027-01-01'
+2026-11-20T10:36:21.094099Z	   33 Query	CREATE INDEX idx_status_amount
+    ON orders(status, amount)
+2026-11-20T10:36:21.151186Z	   33 Query	SHOW INDEX FROM orders
+2026-11-20T10:36:21.161699Z	   33 Query	EXPLAIN SELECT * FROM orders WHERE status = 'paid'
+2026-11-20T10:36:21.162183Z	   33 Query	EXPLAIN SELECT * FROM orders
+WHERE status = 'paid' AND amount > 1000
+2026-11-20T10:36:21.162559Z	   33 Query	DROP INDEX idx_amount ON orders
+2026-11-20T10:36:21.188029Z	   33 Query	EXPLAIN SELECT * FROM orders WHERE amount > 1000
+2026-11-20T10:36:21.188488Z	   33 Query	CREATE INDEX idx_amount ON orders(amount)
+2026-11-20T10:36:21.340036Z	   34 Query	CREATE INDEX idx_customer_amount
+    ON orders(customer_id, amount)
+2026-11-20T10:36:21.405637Z	   34 Query	EXPLAIN SELECT customer_id, SUM(amount)
+FROM orders
+GROUP BY customer_id
+2026-11-20T10:36:21.489830Z	   35 Query	EXPLAIN ANALYZE
+SELECT * FROM orders
+WHERE amount > 1000

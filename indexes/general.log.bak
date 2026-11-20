@@ -1,0 +1,122 @@
+C:\Users\Administrator\source\check\mysql-8.4.6-winx64\bin\mysqld.exe, Version: 8.4.6 (MySQL Community Server - GPL). started with:
+TCP Port: 3307, Named Pipe: MySQL
+Time                 Id Command    Argument
+2026-11-20T10:36:19.894192Z	   28 Quit	
+2026-11-20T10:36:19.996347Z	   29 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:36:19.996671Z	   29 Query	select @@version_comment limit 1
+2026-11-20T10:36:19.999681Z	   29 Query	-- 01_setup.sql
+2026-11-20T10:36:19.999921Z	   29 Query	CREATE DATABASE IF NOT EXISTS index_practice
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci
+2026-11-20T10:36:20.004114Z	   29 Query	SELECT DATABASE()
+2026-11-20T10:36:20.004412Z	   29 Init DB	index_practice
+2026-11-20T10:36:20.004606Z	   29 Query	-- The tables are dropped, not just emptied: a plain DELETE keeps the indexes
+2026-11-20T10:36:20.004858Z	   29 Query	-- created by the previous run, and then CREATE INDEX in 03_... fails with
+2026-11-20T10:36:20.004977Z	   29 Query	-- ERROR 1061 (Duplicate key name).
+2026-11-20T10:36:20.005125Z	   29 Query	SET FOREIGN_KEY_CHECKS = 0
+2026-11-20T10:36:20.007192Z	   29 Query	DROP TABLE IF EXISTS orders
+2026-11-20T10:36:20.070508Z	   29 Query	DROP TABLE IF EXISTS customers
+2026-11-20T10:36:20.113535Z	   29 Query	SET FOREIGN_KEY_CHECKS = 1
+2026-11-20T10:36:20.113692Z	   29 Query	CREATE TABLE IF NOT EXISTS customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    city VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-20T10:36:20.175314Z	   29 Query	CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'new',
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+2026-11-20T10:36:20.257695Z	   29 Query	SET FOREIGN_KEY_CHECKS = 0
+2026-11-20T10:36:20.257904Z	   29 Query	ALTER TABLE customers AUTO_INCREMENT = 1
+2026-11-20T10:36:20.281023Z	   29 Query	ALTER TABLE orders AUTO_INCREMENT = 1
+2026-11-20T10:36:20.301321Z	   29 Query	SET FOREIGN_KEY_CHECKS = 1
+2026-11-20T10:36:20.301601Z	   29 Query	INSERT INTO customers (name, email, city) VALUES
+  ('Иван Иванов', 'ivan@example.com', 'Москва'),
+  ('Пётр Петров', 'petr@example.com', 'Санкт-Петербург'),
+  ('Мария Сидорова', 'maria@example.com', 'Москва'),
+  ('Алексей Смирнов', 'alex@example.com', 'Казань'),
+  ('Ольга Кузнецова', 'olga@example.com', 'Новосибирск')
+2026-11-20T10:36:20.312733Z	   29 Query	INSERT INTO orders (customer_id, order_date, amount, status) VALUES
+  (1, '2026-10-01', 1500.00, 'paid'),
+  (1, '2026-10-05', 2300.50, 'paid'),
+  (2, '2026-10-03', 800.00, 'new'),
+  (3, '2026-10-07', 4200.00, 'paid'),
+  (3, '2026-10-10', 1100.00, 'cancelled'),
+  (4, '2026-10-12', 950.00, 'new')
+2026-11-20T10:36:20.322056Z	   29 Query	SHOW TABLES
+2026-11-20T10:36:20.324367Z	   29 Query	SELECT * FROM customers
+2026-11-20T10:36:20.325314Z	   29 Query	SELECT * FROM orders
+2026-11-20T10:36:20.327194Z	   29 Quit	
+2026-11-20T10:36:20.508091Z	   30 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:36:20.508375Z	   30 Query	select @@version_comment limit 1
+2026-11-20T10:36:20.511374Z	   30 Query	-- 02_explain_before.sql
+2026-11-20T10:36:20.511598Z	   30 Query	SELECT DATABASE()
+2026-11-20T10:36:20.511833Z	   30 Init DB	index_practice
+2026-11-20T10:36:20.512016Z	   30 Query	SHOW INDEX FROM orders
+2026-11-20T10:36:20.522359Z	   30 Query	EXPLAIN SELECT * FROM orders WHERE amount > 1000
+2026-11-20T10:36:20.524357Z	   30 Quit	
+2026-11-20T10:36:20.700413Z	   31 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:36:20.703177Z	   31 Query	select @@version_comment limit 1
+2026-11-20T10:36:20.709670Z	   31 Query	-- 03_explain_after_amount.sql
+2026-11-20T10:36:20.710000Z	   31 Query	SELECT DATABASE()
+2026-11-20T10:36:20.710275Z	   31 Init DB	index_practice
+2026-11-20T10:36:20.710508Z	   31 Query	CREATE INDEX idx_amount ON orders(amount)
+2026-11-20T10:36:20.819222Z	   31 Query	SHOW INDEX FROM orders
+2026-11-20T10:36:20.827906Z	   31 Query	EXPLAIN SELECT * FROM orders WHERE amount > 1000
+2026-11-20T10:36:20.829267Z	   31 Quit	
+2026-11-20T10:36:20.929519Z	   32 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:36:20.929835Z	   32 Query	select @@version_comment limit 1
+2026-11-20T10:36:20.932920Z	   32 Query	-- 04_function_index.sql
+2026-11-20T10:36:20.933131Z	   32 Query	SELECT DATABASE()
+2026-11-20T10:36:20.933312Z	   32 Init DB	index_practice
+2026-11-20T10:36:20.933433Z	   32 Query	EXPLAIN SELECT * FROM orders WHERE YEAR(order_date) = 2026
+2026-11-20T10:36:20.933884Z	   32 Query	CREATE INDEX idx_order_date ON orders(order_date)
+2026-11-20T10:36:20.995479Z	   32 Query	SHOW INDEX FROM orders
+2026-11-20T10:36:21.003047Z	   32 Query	EXPLAIN SELECT * FROM orders
+WHERE order_date >= '2026-01-01'
+  AND order_date < '2027-01-01'
+2026-11-20T10:36:21.003756Z	   32 Quit	
+2026-11-20T10:36:21.090829Z	   33 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:36:21.091084Z	   33 Query	select @@version_comment limit 1
+2026-11-20T10:36:21.093520Z	   33 Query	-- 05_composite_index.sql
+2026-11-20T10:36:21.093728Z	   33 Query	SELECT DATABASE()
+2026-11-20T10:36:21.093955Z	   33 Init DB	index_practice
+2026-11-20T10:36:21.094099Z	   33 Query	CREATE INDEX idx_status_amount
+    ON orders(status, amount)
+2026-11-20T10:36:21.151186Z	   33 Query	SHOW INDEX FROM orders
+2026-11-20T10:36:21.161699Z	   33 Query	EXPLAIN SELECT * FROM orders WHERE status = 'paid'
+2026-11-20T10:36:21.162183Z	   33 Query	EXPLAIN SELECT * FROM orders
+WHERE status = 'paid' AND amount > 1000
+2026-11-20T10:36:21.162559Z	   33 Query	DROP INDEX idx_amount ON orders
+2026-11-20T10:36:21.188029Z	   33 Query	EXPLAIN SELECT * FROM orders WHERE amount > 1000
+2026-11-20T10:36:21.188488Z	   33 Query	CREATE INDEX idx_amount ON orders(amount)
+2026-11-20T10:36:21.238665Z	   33 Quit	
+2026-11-20T10:36:21.336359Z	   34 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:36:21.336581Z	   34 Query	select @@version_comment limit 1
+2026-11-20T10:36:21.339470Z	   34 Query	-- 06_covering_index.sql
+2026-11-20T10:36:21.339684Z	   34 Query	SELECT DATABASE()
+2026-11-20T10:36:21.339898Z	   34 Init DB	index_practice
+2026-11-20T10:36:21.340036Z	   34 Query	CREATE INDEX idx_customer_amount
+    ON orders(customer_id, amount)
+2026-11-20T10:36:21.405637Z	   34 Query	EXPLAIN SELECT customer_id, SUM(amount)
+FROM orders
+GROUP BY customer_id
+2026-11-20T10:36:21.406736Z	   34 Quit	
+2026-11-20T10:36:21.485562Z	   35 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:36:21.485890Z	   35 Query	select @@version_comment limit 1
+2026-11-20T10:36:21.489110Z	   35 Query	-- 07_explain_analyze.sql
+2026-11-20T10:36:21.489379Z	   35 Query	SELECT DATABASE()
+2026-11-20T10:36:21.489640Z	   35 Init DB	index_practice
+2026-11-20T10:36:21.489830Z	   35 Query	EXPLAIN ANALYZE
+SELECT * FROM orders
+WHERE amount > 1000
+2026-11-20T10:36:21.492566Z	   35 Quit	
+2026-11-20T10:36:25.209470Z	   36 Connect	root@localhost on  using SSL/TLS
+2026-11-20T10:36:25.209771Z	   36 Query	select @@version_comment limit 1
+2026-11-20T10:36:25.210130Z	   36 Query	SET GLOBAL general_log='OFF'
